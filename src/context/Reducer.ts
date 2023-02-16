@@ -47,8 +47,7 @@ export function reducer(state: IContext2, action: MainAction): IContext2 {
         profile: action.payload,
       }
     case Types.LOAD_VIDEOS:
-      const videos = action.payload
-      videos.map((video) => {
+      action.payload.map((video) => {
         const followedBy = video.user.followedBy
         const followerIds = followedBy.map((followed) => followed.followerId)
         if (!followerIds.includes(state.user.id)) {
@@ -63,7 +62,7 @@ export function reducer(state: IContext2, action: MainAction): IContext2 {
       })
       return {
         ...state,
-        videos,
+        videos: action.payload
       }
     case Types.FOLLOW_USER:
       state.videos.map((video) => {
